@@ -12,16 +12,23 @@ export default function PreRegistrationSection() {
   return (
     <motion.section
       id="reservar-plaza"
-      className="relative flex min-h-screen items-center overflow-hidden bg-[#040404] px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16"
+      className="relative flex min-h-screen items-center overflow-hidden bg-[#040404] px-5 py-20 sm:px-8 sm:py-24 md:px-12 lg:px-16"
       variants={preRegistrationSectionVariants}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
     >
+      <span id="preinscripcion" className="absolute -top-24" aria-hidden />
+
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[#050505]" />
         <div className="absolute inset-0 bg-[repeating-linear-gradient(-78deg,rgba(255,255,255,0.028)_0px,rgba(255,255,255,0.028)_1px,transparent_1px,transparent_13px)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.86),rgba(0,0,0,0.92))]" />
+        <motion.div
+          className="absolute top-0 h-px w-full bg-[#ffd10033]"
+          animate={{ opacity: [0.15, 0.45, 0.15] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+        />
         <motion.div
           // Luz lateral amarilla suave para coherencia con el universo motorsport
           className="absolute inset-y-0 left-0 w-28"

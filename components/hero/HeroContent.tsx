@@ -88,7 +88,7 @@ export default function HeroContent() {
           exit={{ opacity: 0, y: 10, transition: { duration: 0.3, ease: "easeOut" } }}
         >
           <motion.a
-            href="#preinscripcion"
+            href="#reservar-plaza"
             className="inline-flex items-center justify-center rounded-md border border-[#ffe169] bg-[#ffd100] px-6 py-3 text-sm font-black uppercase tracking-[0.1em] text-black shadow-[0_12px_0_rgba(0,0,0,0.55)] sm:px-8 sm:py-3.5 sm:text-base"
             whileHover={{
               scale: 1.05,

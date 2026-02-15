@@ -5,9 +5,9 @@ import TimelineItem from "./TimelineItem";
 import TimelineProgressLine from "./TimelineProgressLine";
 
 const stages = [
-  "4 Heats con Hot Lap",
-  "Semi Final con Long Lap",
-  "Gran Final + Finales con 2 Long Lap"
+  "4 Heats clasificatorios con Hot Lap individual.",
+  "Semi Final con formato Long Lap estratégico.",
+  "Gran Final y finales de categoría con doble Long Lap."
 ];
 
 export default function CompetitionTimeline() {
@@ -29,6 +29,9 @@ export default function CompetitionTimeline() {
           <h2 className="mt-3 text-3xl font-black uppercase leading-[0.95] tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
             Cada fase eleva la tensión en pista
           </h2>
+          <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-[#cfcfcf] sm:text-base">
+            Estructura competitiva diseñada para premiar constancia, ritmo y gestión bajo presión real.
+          </p>
         </header>
 
         <div className="relative pl-7 md:pl-0">

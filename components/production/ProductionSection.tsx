@@ -8,32 +8,32 @@ const productionPillars = [
   {
     title: "Retransmisión en directo – Mundokart Podcast",
     description:
-      "Cobertura en directo con narrativa de carrera y seguimiento profesional de cada fase del campeonato."
+      "Cobertura oficial en directo con narrativa de carrera y lectura estratégica del campeonato."
   },
   {
     title: "Balance de flota por Jon del Valle",
     description:
-      "Supervisión técnica para asegurar equilibrio competitivo, consistencia mecánica y transparencia deportiva."
+      "Control técnico de flota para garantizar equilibrio competitivo y consistencia mecánica."
   },
   {
     title: "Comisarios experimentados",
     description:
-      "Dirección de pista con criterio reglamentario y control operativo para mantener orden y justicia en carrera."
+      "Dirección de pista con criterio reglamentario para sostener orden y justicia competitiva."
   },
   {
     title: "Ceremonia de podium en todas las carreras",
     description:
-      "Protocolo oficial de premiación en cada cita para reforzar prestigio, mérito y cultura competitiva."
+      "Protocolo oficial de podium en cada manga para reforzar mérito, prestigio y cultura de campeonato."
   },
   {
     title: "Comentaristas y entrevistas",
     description:
-      "Contexto estratégico y análisis post-carrera con voces expertas y testimonios de pilotos protagonistas."
+      "Análisis post-carrera y entrevistas oficiales con pilotos protagonistas y equipo técnico."
   },
   {
     title: "Fotógrafos e invitados especiales",
     description:
-      "Producción visual y presencia institucional para documentar el evento con estándar de campeonato serio."
+      "Cobertura visual e invitados institucionales para documentar el evento con estándar profesional."
   }
 ];
 
@@ -66,7 +66,7 @@ export default function ProductionSection() {
             Estructura profesional en cada carrera
           </h2>
           <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-[#cfcfcf] sm:text-base">
-            Operativa, comunicación y protocolo diseñados para sostener un campeonato serio, estable y competitivo.
+            Operativa, protocolo y comunicación estructurados para un campeonato serio, estable y verificable.
           </p>
         </header>
 

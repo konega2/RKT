@@ -10,11 +10,11 @@ type PricingCTAProps = {
 export default function PricingCTA({ showSticky }: PricingCTAProps) {
   return (
     <>
-      <motion.div variants={pricingCtaVariants} className="mt-8 flex flex-col items-center gap-4 pb-20 md:pb-0">
+      <motion.div variants={pricingCtaVariants} className="mt-8 flex flex-col items-center gap-4 pb-24 md:pb-0">
         <motion.a
           href="#reservar-plaza"
-          className="inline-flex w-full max-w-2xl items-center justify-center rounded-md bg-[#ffd100] px-6 py-5 text-center text-sm font-black uppercase tracking-[0.08em] text-black shadow-[0_16px_0_rgba(0,0,0,0.62)] sm:text-base"
-          whileHover={{ scale: 1.05, boxShadow: "0 22px 0 rgba(0,0,0,0.62)" }}
+          className="inline-flex w-full max-w-3xl items-center justify-center rounded-md bg-[#ffd100] px-6 py-5 text-center text-sm font-black uppercase tracking-[0.09em] text-black shadow-[0_18px_0_rgba(0,0,0,0.64)] sm:text-base"
+          whileHover={{ scale: 1.05, boxShadow: "0 24px 0 rgba(0,0,0,0.64)" }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 260, damping: 18 }}
         >
@@ -37,7 +37,7 @@ export default function PricingCTA({ showSticky }: PricingCTAProps) {
           >
             <motion.a
               href="#reservar-plaza"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#ffd100] px-4 py-3 text-center text-xs font-black uppercase tracking-[0.08em] text-black shadow-[0_10px_0_rgba(0,0,0,0.58)]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#ffd100] px-4 py-3.5 text-center text-xs font-black uppercase tracking-[0.08em] text-black shadow-[0_10px_0_rgba(0,0,0,0.58)]"
               whileTap={{ scale: 0.98 }}
             >
               RESERVAR PLAZA EN PARRILLA

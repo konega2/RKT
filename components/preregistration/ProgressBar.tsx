@@ -13,10 +13,10 @@ export default function ProgressBar({ progress }: ProgressBarProps) {
         <span>Estado de Preinscripción</span>
         <span className="text-[#ffd100]">{Math.round(progress)}%</span>
       </div>
-      <div className="h-[3px] w-full bg-[#ffffff1f]">
+      <div className="h-[5px] w-full overflow-hidden rounded-sm bg-[#ffffff1f]">
         <motion.div
           // Barra de progreso ligada a campos completados en tiempo real
-          className="h-[3px] origin-left bg-[#ffd100]"
+          className="h-[5px] origin-left bg-[#ffd100] shadow-[0_0_10px_rgba(255,209,0,0.34)]"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: progress / 100 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}

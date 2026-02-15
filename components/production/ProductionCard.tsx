@@ -25,7 +25,9 @@ export default function ProductionCard({
       className={`group relative overflow-hidden rounded-md border border-[#ffffff1f] bg-[#070707] px-5 py-6 shadow-[0_14px_28px_rgba(0,0,0,0.62)] sm:px-6 sm:py-7 ${offset}`}
       whileHover={{
         scale: 1.02,
-        boxShadow: "0 16px 28px rgba(0,0,0,0.7),0 0 14px rgba(255,209,0,0.18)"
+        y: -2,
+        borderColor: "rgba(255,209,0,0.42)",
+        boxShadow: "0 18px 30px rgba(0,0,0,0.76),0 0 10px rgba(255,209,0,0.12)"
       }}
       whileTap={{ scale: 0.985 }}
       transition={{ type: "spring", stiffness: 280, damping: 20 }}
