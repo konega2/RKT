@@ -14,9 +14,16 @@ export default function PricingCTA({ showSticky }: PricingCTAProps) {
         <motion.a
           href="#reservar-plaza"
           className="inline-flex w-full max-w-3xl items-center justify-center rounded-md bg-[#ffd100] px-6 py-5 text-center text-sm font-black uppercase tracking-[0.09em] text-black shadow-[0_18px_0_rgba(0,0,0,0.64)] sm:text-base"
+          animate={{
+            boxShadow: [
+              "0 18px 0 rgba(0,0,0,0.64)",
+              "0 18px 0 rgba(0,0,0,0.64), 0 0 12px rgba(255,209,0,0.18)",
+              "0 18px 0 rgba(0,0,0,0.64)"
+            ]
+          }}
           whileHover={{ scale: 1.05, boxShadow: "0 24px 0 rgba(0,0,0,0.64)" }}
           whileTap={{ scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
         >
           RESERVAR PLAZA EN PARRILLA
         </motion.a>
@@ -37,7 +44,7 @@ export default function PricingCTA({ showSticky }: PricingCTAProps) {
           >
             <motion.a
               href="#reservar-plaza"
-              className="inline-flex w-full items-center justify-center rounded-md bg-[#ffd100] px-4 py-3.5 text-center text-xs font-black uppercase tracking-[0.08em] text-black shadow-[0_10px_0_rgba(0,0,0,0.58)]"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#ffd100] px-4 py-4 text-center text-xs font-black uppercase tracking-[0.08em] text-black shadow-[0_10px_0_rgba(0,0,0,0.58)]"
               whileTap={{ scale: 0.98 }}
             >
               RESERVAR PLAZA EN PARRILLA

@@ -32,18 +32,23 @@ export default function OfficialPrizesSection() {
       viewport={{ once: true, amount: 0.22 }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.95),rgba(0,0,0,0.83)_45%,rgba(0,0,0,0.96))]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#2a2a2a]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[#2a2a2a]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <header className="mb-10 max-w-3xl sm:mb-12">
+        <header className="mb-10 max-w-4xl sm:mb-14">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ffd100] sm:text-sm">
             Distinciones Oficiales
           </p>
           <h2 className="mt-3 text-3xl font-black uppercase leading-[0.94] tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
             PREMIOS OFICIALES DEL CAMPEONATO
           </h2>
+          <p className="mt-4 max-w-[58ch] text-sm leading-relaxed text-[#d0d0d0] sm:text-base">
+            Reconocimiento institucional por mérito competitivo, regularidad y rendimiento en todas las fases.
+          </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7">
           {prizeGroups.map((item, index) => (
             <motion.article
               key={item.title}
@@ -55,7 +60,7 @@ export default function OfficialPrizesSection() {
                 boxShadow: "0 16px 26px rgba(0,0,0,0.72),0 0 8px rgba(255,209,0,0.12)"
               }}
               transition={{ type: "spring", stiffness: 260, damping: 21 }}
-              className="rounded-md border border-[#ffffff1f] bg-[#080808] px-5 py-5 shadow-[0_12px_24px_rgba(0,0,0,0.62)] sm:px-6"
+              className="rounded-md border border-[#ffffff1f] bg-[#080808] px-5 py-6 shadow-[0_12px_24px_rgba(0,0,0,0.62)] sm:px-6 sm:py-7"
             >
               <div className="mb-3 h-px w-14 bg-[#ffd100]" />
               <h3 className="text-lg font-black uppercase leading-tight tracking-[-0.01em] text-white sm:text-xl">
