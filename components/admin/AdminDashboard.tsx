@@ -7,6 +7,7 @@ import { AdminPanelView, DashboardStats, PreRegistrationRecord } from "@/lib/adm
 import AdminLayout from "./AdminLayout";
 import ConfirmModal from "./ConfirmModal";
 import EditModal from "./EditModal";
+import ManualEntryModal from "./ManualEntryModal";
 import PilotProfileModal from "./PilotProfileModal";
 import PreRegistrationTable from "./PreRegistrationTable";
 import StatsCards from "./StatsCards";
@@ -157,6 +158,10 @@ export default function AdminDashboard({ initialItems, initialStats }: AdminDash
   const [deletingItem, setDeletingItem] = useState<PreRegistrationRecord | null>(null);
   const [selectedPilot, setSelectedPilot] = useState<PreRegistrationRecord | null>(null);
   const [compactTable, setCompactTable] = useState(false);
+  const [manualModal, setManualModal] = useState<{ open: boolean; mode: "preinscripcion" | "piloto" }>({
+    open: false,
+    mode: "preinscripcion"
+  });
 
   const [pendingFilters, setPendingFilters] = useState<FilterState>(initialFilterState);
   const [confirmedFilters, setConfirmedFilters] = useState<FilterState>(initialFilterState);
@@ -279,7 +284,13 @@ export default function AdminDashboard({ initialItems, initialStats }: AdminDash
         {activeView === "pending" ? (
           <>
             <SectionFilters value={pendingFilters} onChange={setPendingFilters} />
-            <div className="flex justify-end">
+            <div className="flex flex-wrap justify-end gap-2">
+              <button
+                onClick={() => setManualModal({ open: true, mode: "preinscripcion" })}
+                className="rounded-md bg-[#ffd100] px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.08em] text-black"
+              >
+                Añadir preinscripción
+              </button>
               <button
                 onClick={() => setCompactTable((prev) => !prev)}
                 className="rounded-md border border-[#4f4f4f] px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#e7e7e7]"
@@ -302,7 +313,13 @@ export default function AdminDashboard({ initialItems, initialStats }: AdminDash
         {activeView === "confirmed" ? (
           <>
             <SectionFilters value={confirmedFilters} onChange={setConfirmedFilters} />
-            <div className="flex justify-end">
+            <div className="flex flex-wrap justify-end gap-2">
+              <button
+                onClick={() => setManualModal({ open: true, mode: "piloto" })}
+                className="rounded-md bg-[#ffd100] px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.08em] text-black"
+              >
+                Añadir piloto manual
+              </button>
               <button
                 onClick={() => setCompactTable((prev) => !prev)}
                 className="rounded-md border border-[#4f4f4f] px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#e7e7e7]"
@@ -324,16 +341,33 @@ export default function AdminDashboard({ initialItems, initialStats }: AdminDash
         ) : null}
 
         {activeView === "pilots" ? (
-          <PreRegistrationTable
-            section="pilots"
-            title="PILOTOS CONFIRMADOS"
-            items={filteredConfirmedItems}
-            onConfirm={handleConfirm}
-            onEdit={setEditingItem}
-            onDelete={setDeletingItem}
-            onViewPilot={setSelectedPilot}
-            compact={compactTable}
-          />
+          <>
+            <div className="flex flex-wrap justify-end gap-2">
+              <button
+                onClick={() => setManualModal({ open: true, mode: "piloto" })}
+                className="rounded-md bg-[#ffd100] px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.08em] text-black"
+              >
+                Añadir piloto manual
+              </button>
+              <button
+                onClick={() => setCompactTable((prev) => !prev)}
+                className="rounded-md border border-[#4f4f4f] px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#e7e7e7]"
+              >
+                {compactTable ? "Modo normal" : "Modo compacto"}
+              </button>
+            </div>
+
+            <PreRegistrationTable
+              section="pilots"
+              title="PILOTOS CONFIRMADOS"
+              items={filteredConfirmedItems}
+              onConfirm={handleConfirm}
+              onEdit={setEditingItem}
+              onDelete={setDeletingItem}
+              onViewPilot={setSelectedPilot}
+              compact={compactTable}
+            />
+          </>
         ) : null}
 
         {activeView === "stats" ? (
@@ -369,6 +403,13 @@ export default function AdminDashboard({ initialItems, initialStats }: AdminDash
       </motion.div>
 
       <EditModal item={editingItem} onSave={handleSaveEdit} onClose={() => setEditingItem(null)} />
+
+      <ManualEntryModal
+        isOpen={manualModal.open}
+        mode={manualModal.mode}
+        onClose={() => setManualModal((prev) => ({ ...prev, open: false }))}
+        onCreated={syncFromServer}
+      />
 
       <PilotProfileModal item={selectedPilot} onClose={() => setSelectedPilot(null)} onRefresh={syncFromServer} />
 
