@@ -50,11 +50,23 @@ export default function SlotsProgressBar() {
     }
 
     loadStats();
-    const intervalId = window.setInterval(loadStats, 30000);
+    const intervalId = window.setInterval(loadStats, 10000);
+
+    const onFocus = () => loadStats();
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        loadStats();
+      }
+    };
+
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       isMounted = false;
       window.clearInterval(intervalId);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 

@@ -4,6 +4,9 @@ import { prisma } from "@/lib/prisma";
 
 const TOTAL_SLOTS = 96;
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function isDbUnavailableError(error: unknown) {
   return (
     error instanceof Prisma.PrismaClientInitializationError ||
@@ -28,6 +31,10 @@ export async function GET() {
       confirmed,
       available,
       occupancyPercent
+    }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate"
+      }
     });
   } catch (error) {
     if (isDbUnavailableError(error)) {
