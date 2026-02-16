@@ -37,20 +37,6 @@ export const pricingTitleWordVariants = {
   }
 };
 
-// Barra de progreso visual: se dibuja de izquierda a derecha al revelar la sección
-export const slotsProgressBarVariants = {
-  hidden: { scaleX: 0, opacity: 0.35 },
-  show: {
-    scaleX: 1,
-    opacity: 1,
-    transition: {
-      duration: 0.72,
-      delay: 0.2,
-      ease: [0.22, 1, 0.36, 1]
-    }
-  }
-};
-
 // Card de precio: escala desde 0.9 para destacar decisión económica clave
 export const pricingCardVariants = {
   hidden: { opacity: 0, scale: 0.9 },

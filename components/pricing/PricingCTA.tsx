@@ -10,20 +10,18 @@ type PricingCTAProps = {
 export default function PricingCTA({ showSticky }: PricingCTAProps) {
   return (
     <>
-      <motion.div variants={pricingCtaVariants} className="mt-8 flex flex-col items-center gap-4 pb-24 md:pb-0">
+      <motion.div variants={pricingCtaVariants} className="mt-9 flex flex-col items-start gap-4 pb-24 md:pb-0">
         <motion.a
           href="#reservar-plaza"
-          className="inline-flex w-full max-w-3xl items-center justify-center rounded-md bg-[#ffd100] px-6 py-5 text-center text-sm font-black uppercase tracking-[0.09em] text-black shadow-[0_18px_0_rgba(0,0,0,0.64)] sm:text-base"
-          animate={{
-            boxShadow: [
-              "0 18px 0 rgba(0,0,0,0.64)",
-              "0 18px 0 rgba(0,0,0,0.64), 0 0 12px rgba(255,209,0,0.18)",
-              "0 18px 0 rgba(0,0,0,0.64)"
-            ]
+          className="inline-flex w-full max-w-[440px] items-center justify-center rounded-md bg-[#ffd100] px-8 py-5 text-center text-sm font-black uppercase tracking-[0.1em] text-black shadow-[0_14px_0_rgba(0,0,0,0.62)] sm:text-base"
+          whileHover={{
+            y: -2,
+            scale: 1.02,
+            boxShadow: "0 16px 0 rgba(0,0,0,0.62),0 0 12px rgba(255,209,0,0.22)",
+            filter: "brightness(1.03)"
           }}
-          whileHover={{ scale: 1.05, boxShadow: "0 24px 0 rgba(0,0,0,0.64)" }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          whileTap={{ scale: 0.99 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           RESERVAR PLAZA EN PARRILLA
         </motion.a>
