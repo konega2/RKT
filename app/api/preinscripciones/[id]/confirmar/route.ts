@@ -15,7 +15,11 @@ export async function PATCH(_: Request, { params }: Params) {
 
     const updated = await prisma.preInscripcion.update({
       where: { id: params.id },
-      data: { estado: Estado.CONFIRMADO }
+      data: {
+        estado: Estado.CONFIRMADO,
+        confirmedAt: new Date(),
+        confirmedBy: "RKT Admin"
+      }
     });
 
     return NextResponse.json({ ok: true, item: updated });

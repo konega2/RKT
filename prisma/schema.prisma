@@ -24,10 +24,40 @@ model PreInscripcion {
   imagenAceptada  Boolean
   responsabilidad Boolean
   estado          Estado   @default(PENDIENTE)
+  confirmedAt     DateTime?
+  confirmedBy     String?
+  observaciones   String?
+  estadoPiloto    EstadoPiloto @default(ACTIVO)
+  categoria       Categoria?
+  notasCompetitivas String?
   createdAt       DateTime @default(now())
+  comentariosInternos ComentarioInterno[]
 }
 
 enum Estado {
   PENDIENTE
   CONFIRMADO
+}
+
+enum EstadoPiloto {
+  ACTIVO
+  PENDIENTE_PAGO
+  BAJA
+}
+
+enum Categoria {
+  Junior
+  Senior
+  Master
+}
+
+model ComentarioInterno {
+  id        String   @id @default(uuid())
+  pilotoId  String
+  contenido String
+  createdAt DateTime @default(now())
+
+  piloto PreInscripcion @relation(fields: [pilotoId], references: [id], onDelete: Cascade)
+
+  @@index([pilotoId, createdAt])
 }
