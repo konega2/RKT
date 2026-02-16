@@ -65,7 +65,7 @@ export default function ProductionCard({
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="rkt-flip-face absolute inset-0 overflow-hidden rounded-md border border-[#ffffff1f] bg-[linear-gradient(145deg,#090909_0%,#060606_62%,#0a0a0a_100%)] px-5 py-6 shadow-[0_14px_30px_rgba(0,0,0,0.62)] transition-[box-shadow,border-color] duration-500 group-hover:border-[#ffd1003f] group-hover:shadow-[0_18px_34px_rgba(0,0,0,0.74),0_0_10px_rgba(255,209,0,0.14)] sm:px-6 sm:py-7">
+        <div className="rkt-flip-face rkt-flip-front absolute inset-0 overflow-hidden rounded-md border border-[#ffffff1f] bg-[linear-gradient(145deg,#090909_0%,#060606_62%,#0a0a0a_100%)] px-5 py-6 shadow-[0_14px_30px_rgba(0,0,0,0.62)] transition-[box-shadow,border-color] duration-500 group-hover:border-[#ffd1003f] group-hover:shadow-[0_18px_34px_rgba(0,0,0,0.74),0_0_10px_rgba(255,209,0,0.14)] sm:px-6 sm:py-7">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_0%_0%,rgba(255,209,0,0.08),transparent_52%),linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0)_34%,rgba(0,0,0,0.5)_100%),repeating-linear-gradient(126deg,rgba(255,255,255,0.018)_0px,rgba(255,255,255,0.018)_1px,transparent_1px,transparent_11px),repeating-linear-gradient(-56deg,rgba(255,255,255,0.012)_0px,rgba(255,255,255,0.012)_1px,transparent_1px,transparent_14px)]" />
           <div className="pointer-events-none absolute inset-[3px] rounded-[5px] border border-[#ffffff14]" />
           <div className="pointer-events-none absolute right-0 top-0 h-16 w-16 bg-[linear-gradient(135deg,rgba(255,209,0,0.2)_0%,rgba(255,209,0,0)_48%)] opacity-30" />
