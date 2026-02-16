@@ -8,6 +8,8 @@ type FormInputProps = {
   id: string;
   label: string;
   type?: "text" | "number";
+  min?: number;
+  max?: number;
   value: string;
   placeholder: string;
   touched: boolean;
@@ -22,6 +24,8 @@ export default function FormInput({
   id,
   label,
   type = "text",
+  min,
+  max,
   value,
   placeholder,
   touched,
@@ -40,6 +44,8 @@ export default function FormInput({
       <input
         id={id}
         type={type}
+        min={min}
+        max={max}
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}

@@ -41,11 +41,18 @@ export default function PreRegistrationForm({ onSuccess }: PreRegistrationFormPr
 
   const errors = useMemo(() => {
     const nextErrors: FormErrors = {};
+    const eventAgeNumber = Number(formData.eventAge);
 
     if (!formData.fullName.trim()) nextErrors.fullName = "Introduce tu nombre completo.";
-    if (!isPhoneFieldValid(formData.phone)) nextErrors.phone = "Introduce un número de teléfono válido.";
+    if (!isPhoneFieldValid(formData.phone)) {
+      nextErrors.phone = "Introduce un número de teléfono válido y dentro de la longitud permitida para su país.";
+    }
     if (!formData.identityNumber.trim()) nextErrors.identityNumber = "Introduce tu número de identidad.";
-    if (!formData.eventAge.trim()) nextErrors.eventAge = "Indica tu edad en el evento.";
+    if (!formData.eventAge.trim()) {
+      nextErrors.eventAge = "Indica tu edad en el evento.";
+    } else if (!Number.isFinite(eventAgeNumber) || eventAgeNumber < 16 || eventAgeNumber > 90) {
+      nextErrors.eventAge = "La edad debe estar entre 16 y 90 años.";
+    }
     if (!formData.insuranceAccepted) nextErrors.insuranceAccepted = "Debes aceptar esta condición.";
     if (!formData.imageRightsAccepted) nextErrors.imageRightsAccepted = "Debes aceptar esta condición.";
     if (!formData.physicalResponsibilityAccepted) nextErrors.physicalResponsibilityAccepted = "Debes aceptar esta condición.";
@@ -54,11 +61,14 @@ export default function PreRegistrationForm({ onSuccess }: PreRegistrationFormPr
   }, [formData]);
 
   const completionCount = useMemo(() => {
+    const eventAgeNumber = Number(formData.eventAge);
+    const isAgeValid = Number.isFinite(eventAgeNumber) && eventAgeNumber >= 16 && eventAgeNumber <= 90;
+
     const checks = [
       Boolean(formData.fullName.trim()),
       Boolean(isPhoneFieldValid(formData.phone)),
       Boolean(formData.identityNumber.trim()),
-      Boolean(formData.eventAge.trim()),
+      isAgeValid,
       formData.insuranceAccepted,
       formData.imageRightsAccepted,
       formData.physicalResponsibilityAccepted
@@ -75,7 +85,7 @@ export default function PreRegistrationForm({ onSuccess }: PreRegistrationFormPr
 
   const showError = (field: keyof FormData) => (touched[field] || submitted ? errors[field] : undefined);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
 
@@ -91,6 +101,31 @@ export default function PreRegistrationForm({ onSuccess }: PreRegistrationFormPr
         imageRightsAccepted: true,
         physicalResponsibilityAccepted: true
       });
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/preinscripciones", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nombre: formData.fullName,
+          telefono: formData.phone,
+          identidad: formData.identityNumber,
+          edad: Number(formData.eventAge),
+          email: "",
+          seguroAceptado: formData.insuranceAccepted,
+          imagenAceptada: formData.imageRightsAccepted,
+          responsabilidad: formData.physicalResponsibilityAccepted
+        })
+      });
+
+      if (!response.ok) {
+        return;
+      }
+    } catch {
       return;
     }
 
@@ -145,6 +180,8 @@ export default function PreRegistrationForm({ onSuccess }: PreRegistrationFormPr
           index={3}
           id="eventAge"
           type="number"
+          min={16}
+          max={90}
           label="¿Cuántos años tienes? (En el momento del evento)"
           value={formData.eventAge}
           placeholder="Edad"

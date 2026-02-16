@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { validatePhoneNumberLength } from "libphonenumber-js";
 import es from "react-phone-number-input/locale/es";
 import { fieldRevealVariants } from "./preregistrationVariants";
 
@@ -17,7 +18,16 @@ type PhoneInputFieldProps = {
 export function isPhoneFieldValid(value?: string) {
   if (!value) return false;
   try {
-    return isValidPhoneNumber(value);
+    return validatePhoneNumberLength(value) === undefined && isValidPhoneNumber(value);
+  } catch {
+    return false;
+  }
+}
+
+function hasPhoneExceededCountryMaxLength(value?: string) {
+  if (!value) return false;
+  try {
+    return validatePhoneNumberLength(value) === "TOO_LONG";
   } catch {
     return false;
   }
@@ -32,6 +42,14 @@ export default function PhoneInputField({
   onBlur
 }: PhoneInputFieldProps) {
   const hasError = touched && Boolean(error);
+
+  const handlePhoneChange = (nextValue?: string) => {
+    if (hasPhoneExceededCountryMaxLength(nextValue)) {
+      return;
+    }
+
+    onChange(nextValue);
+  };
 
   return (
     <motion.div custom={index} variants={fieldRevealVariants} className="space-y-2">
@@ -52,7 +70,7 @@ export default function PhoneInputField({
           addInternationalOption={false}
           labels={es}
           value={value}
-          onChange={onChange}
+          onChange={handlePhoneChange}
           onBlur={onBlur}
           placeholder="Número de teléfono"
         />
