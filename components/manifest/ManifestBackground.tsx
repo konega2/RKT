@@ -28,11 +28,12 @@ export default function ManifestBackground({ sectionRef }: ManifestBackgroundPro
         alt=""
         variants={manifestImageVariants}
         style={{ y: imageY }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover [filter:contrast(1.16)_saturate(1.12)_brightness(0.8)]"
       />
 
-      <div className="absolute inset-0 bg-black/70" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,209,0,0.16),rgba(0,0,0,0)_30%,rgba(0,0,0,0.45)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.56)_0%,rgba(0,0,0,0.36)_36%,rgba(0,0,0,0.72)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(102deg,rgba(255,209,0,0.14)_0%,rgba(0,0,0,0.12)_34%,rgba(0,0,0,0.58)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_58%_42%,rgba(255,255,255,0.09)_0%,rgba(0,0,0,0)_42%),radial-gradient(ellipse_at_center,rgba(0,0,0,0.04)_26%,rgba(0,0,0,0.6)_88%)]" />
 
       <motion.div
         aria-hidden
@@ -55,7 +56,7 @@ export default function ManifestBackground({ sectionRef }: ManifestBackgroundPro
       <motion.div
         aria-hidden
         style={{ y: vignetteY }}
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.08)_18%,rgba(0,0,0,0.9)_88%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.02)_22%,rgba(0,0,0,0.86)_90%)]"
       />
     </div>
   );

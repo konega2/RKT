@@ -49,13 +49,14 @@ const desktopOffsets = [
 export default function ProductionSection() {
   return (
     <motion.section
-      className="relative overflow-hidden bg-[#040404] px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16"
+      className="rkt-carbon-surface relative overflow-hidden px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16"
       variants={sectionRevealVariants}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.78)_46%,rgba(0,0,0,0.95)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.72)_46%,rgba(0,0,0,0.95)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_8%,rgba(255,209,0,0.06),transparent_45%)]" />
 
       <div className="relative mx-auto max-w-6xl">
         <header className="mb-10 max-w-3xl sm:mb-12 md:mb-14">
