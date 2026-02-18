@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   confirmationScreenVariants,
   ctaBounceVariants,
@@ -14,7 +15,44 @@ const strategicBullets = [
   "Gestión reglamentaria centralizada"
 ];
 
+const TOTAL_SLOTS = 96;
+
+type SlotsStatsResponse = {
+  ok?: boolean;
+  available?: number;
+};
+
 export default function ConfirmationScreen() {
+  const [availableSlots, setAvailableSlots] = useState<number>(TOTAL_SLOTS);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAvailableSlots = async () => {
+      try {
+        const response = await fetch("/api/preinscripciones/stats", { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+
+        const payload = (await response.json()) as SlotsStatsResponse;
+        if (!isMounted || !payload.ok || typeof payload.available !== "number") {
+          return;
+        }
+
+        setAvailableSlots(Math.max(0, Math.min(TOTAL_SLOTS, payload.available)));
+      } catch {
+        // keep fallback value
+      }
+    };
+
+    loadAvailableSlots();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <motion.div
       variants={confirmationScreenVariants}
@@ -114,7 +152,7 @@ export default function ConfirmationScreen() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-5 text-6xl font-black leading-none tracking-[-0.04em] text-[#ffd100] sm:text-7xl"
           >
-            96
+            {availableSlots}
           </motion.div>
 
           <p className="mt-2 text-sm font-black uppercase tracking-[0.13em] text-white">PLAZAS DISPONIBLES</p>
