@@ -100,13 +100,13 @@ export default function ConfirmationScreen() {
         <motion.aside
           custom={6}
           variants={fieldRevealVariants}
-          className="relative h-full rounded-md border border-[#ffd10033] bg-[linear-gradient(160deg,#0a0a0a_0%,#141414_100%)] p-5 shadow-[0_24px_42px_rgba(0,0,0,0.55)] sm:p-6"
+          className="relative flex h-full flex-col items-center justify-center rounded-md border border-[#ffd10033] bg-[linear-gradient(160deg,#0a0a0a_0%,#141414_100%)] p-5 text-center shadow-[0_24px_42px_rgba(0,0,0,0.55)] sm:p-6"
         >
           <span className="absolute right-4 top-4 rounded-full border border-[#ffd10066] bg-[#ffd1001f] px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.12em] text-[#ffe374]">
             Canal Oficial
           </span>
 
-          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#e1e1e1]">Cupo Reglamento 2026</p>
+          <p className="pt-8 text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#e1e1e1]">Cupo Reglamento 2026</p>
 
           <motion.div
             initial={{ scale: 0.95, opacity: 0.85 }}
@@ -119,19 +119,6 @@ export default function ConfirmationScreen() {
 
           <p className="mt-2 text-sm font-black uppercase tracking-[0.13em] text-white">PLAZAS DISPONIBLES</p>
           <p className="mt-1 text-xs text-[#c8c8c8]">Cupo limitado por reglamento</p>
-
-          <div className="mt-6 rounded-md border border-[#ffffff1f] bg-black/35 p-4">
-            <p className="text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[#d8d8d8]">Ocupación visual</p>
-            <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#2b2b2b]">
-              <motion.div
-                initial={{ width: "0%" }}
-                animate={{ width: "12%" }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full rounded-full bg-[#ffd100]"
-              />
-            </div>
-            <p className="mt-2 text-xs font-medium text-[#d6d6d6]">[██████░░░░] 12% ocupado</p>
-          </div>
         </motion.aside>
       </div>
     </motion.div>
