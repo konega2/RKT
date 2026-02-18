@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Estado, Prisma } from "@prisma/client";
-import { isValidPhoneNumber, parsePhoneNumber, validatePhoneNumberLength } from "libphonenumber-js";
+import { parsePhoneNumber } from "libphonenumber-js";
 import { prisma } from "@/lib/prisma";
 
 type GooglePayload = {
@@ -81,15 +81,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const phoneLengthValidation = validatePhoneNumberLength(telefono);
-    if (phoneLengthValidation === "TOO_LONG") {
-      return NextResponse.json(
-        { ok: false, message: "El teléfono supera la longitud máxima permitida para ese país." },
-        { status: 400 }
-      );
-    }
-
-    if (!isValidPhoneNumber(telefono)) {
+    if (!telefono) {
       return NextResponse.json({ ok: false, message: "Número de teléfono inválido." }, { status: 400 });
     }
 
