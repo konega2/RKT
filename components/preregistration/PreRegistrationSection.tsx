@@ -36,18 +36,6 @@ export default function PreRegistrationSection() {
       </div>
 
       <div className="relative mx-auto w-full max-w-6xl">
-        <header className="mx-auto mb-8 max-w-3xl text-center sm:mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ffd100] sm:text-sm">
-            PREINSCRIPCIÓN OFICIAL
-          </p>
-          <h2 className="mt-3 text-4xl font-black uppercase leading-[0.9] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">
-            ASEGURA TU POSICIÓN EN PARRILLA
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-[#d6d6d6] sm:text-base">
-            La preinscripción se realiza exclusivamente desde la página oficial del Kartódromo Lucas Guerrero.
-          </p>
-        </header>
-
         <ConfirmationScreen />
       </div>
     </motion.section>

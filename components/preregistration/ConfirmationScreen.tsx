@@ -2,11 +2,17 @@
 
 import { motion } from "framer-motion";
 import {
-  confirmationLineVariants,
   confirmationScreenVariants,
   ctaBounceVariants,
   fieldRevealVariants
 } from "./preregistrationVariants";
+
+const strategicBullets = [
+  "Validación oficial de piloto",
+  "Control de plazas limitado a 96 inscritos",
+  "Confirmación directa en panel de gestión",
+  "Gestión reglamentaria centralizada"
+];
 
 export default function ConfirmationScreen() {
   return (
@@ -15,48 +21,119 @@ export default function ConfirmationScreen() {
       initial="hidden"
       animate="show"
       exit="exit"
-      className="relative mx-auto w-full max-w-3xl rounded-md border border-[#ffffff22] bg-[#070707]/90 px-6 py-10 text-center shadow-[0_20px_40px_rgba(0,0,0,0.7)] sm:px-10"
+      className="relative mx-auto w-full max-w-6xl rounded-md border border-[#ffffff22] bg-[#070707]/92 px-6 py-8 shadow-[0_20px_40px_rgba(0,0,0,0.7)] sm:px-8 sm:py-10 lg:px-10"
     >
       <motion.div
-        // Efecto de luz sutil para reforzar la sensación de paso oficial completado
         className="pointer-events-none absolute inset-y-0 left-0 w-24"
-        animate={{ opacity: [0.08, 0.18, 0.08], x: ["-6%", "4%", "-6%"] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ opacity: [0.08, 0.14, 0.08], x: ["-6%", "4%", "-6%"] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="absolute inset-y-0 left-0 w-8 bg-[linear-gradient(90deg,rgba(255,209,0,0.35),rgba(255,209,0,0))]" />
       </motion.div>
 
-      <motion.h3
-        custom={0}
-        variants={fieldRevealVariants}
-        className="text-3xl font-black uppercase leading-[0.9] tracking-[-0.03em] text-white sm:text-4xl"
-      >
-        PREINSCRIPCIÓN EXTERNA OBLIGATORIA
-      </motion.h3>
+      <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+        <div>
+          <motion.p
+            custom={0}
+            variants={fieldRevealVariants}
+            className="text-xs font-semibold uppercase tracking-[0.22em] text-[#ffd100] sm:text-sm"
+          >
+            INSCRIPCIÓN OFICIAL 2026
+          </motion.p>
 
-      <motion.p
-        custom={1}
-        variants={fieldRevealVariants}
-        className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#dddddd] sm:text-base"
-      >
-        Para aparecer en el panel de gestión, completa la inscripción desde la página oficial del Kartódromo Lucas Guerrero.
-      </motion.p>
+          <motion.h3
+            custom={1}
+            variants={fieldRevealVariants}
+            className="mt-3 text-4xl font-black uppercase leading-[0.92] tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl"
+          >
+            ASEGURA TU PLAZA EN LA PARRILLA
+          </motion.h3>
 
-      <motion.div variants={confirmationLineVariants} className="mx-auto mt-6 h-px w-full max-w-sm origin-left bg-[#ffd100]" />
+          <motion.p
+            custom={2}
+            variants={fieldRevealVariants}
+            className="mt-5 max-w-2xl text-sm leading-relaxed text-[#d7d7d7] sm:text-base"
+          >
+            El acceso al campeonato se gestiona desde el canal oficial del Kartódromo para garantizar igualdad,
+            control técnico y validación deportiva.
+          </motion.p>
 
-      <motion.div custom={2} variants={ctaBounceVariants} className="mt-8">
-        <motion.a
-          href="https://kartodromovalencia.com/pre-inscripcion/"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex w-full max-w-lg items-center justify-center rounded-md bg-[#ffd100] px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-black shadow-[0_14px_0_rgba(0,0,0,0.6)] sm:text-base"
-          whileHover={{ scale: 1.05, boxShadow: "0 18px 0 rgba(0,0,0,0.6)" }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          <motion.ul custom={3} variants={fieldRevealVariants} className="mt-6 grid gap-3">
+            {strategicBullets.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-[#e7e7e7] sm:text-[0.95rem]">
+                <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-sm border border-[#ffd10066] bg-[#ffd10014]">
+                  <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 text-[#ffd100]" fill="none" aria-hidden>
+                    <path d="M4.5 10.5l3.2 3.2L15.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </motion.ul>
+
+          <motion.p
+            custom={4}
+            variants={fieldRevealVariants}
+            className="mt-5 text-xs font-semibold uppercase tracking-[0.11em] text-[#ffd100cc]"
+          >
+            Alta demanda: el cupo se bloquea automáticamente al completarse.
+          </motion.p>
+
+          <motion.div custom={5} variants={ctaBounceVariants} className="mt-7">
+            <motion.a
+              href="https://kartodromovalencia.com/pre-inscripcion/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#ffd100] px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-black shadow-[0_14px_0_rgba(0,0,0,0.55)] sm:text-base"
+              whileHover={{ y: -3, boxShadow: "0 18px 20px rgba(255,209,0,0.2)" }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+            >
+              IR A INSCRIPCIÓN OFICIAL
+            </motion.a>
+            <p className="mt-3 text-xs text-[#bbbbbb] sm:text-sm">
+              Serás redirigido al formulario oficial del Kartódromo Lucas Guerrero.
+            </p>
+          </motion.div>
+        </div>
+
+        <motion.aside
+          custom={6}
+          variants={fieldRevealVariants}
+          className="relative h-full rounded-md border border-[#ffd10033] bg-[linear-gradient(160deg,#0a0a0a_0%,#141414_100%)] p-5 shadow-[0_24px_42px_rgba(0,0,0,0.55)] sm:p-6"
         >
-          IR A LA PREINSCRIPCIÓN OFICIAL
-        </motion.a>
-      </motion.div>
+          <span className="absolute right-4 top-4 rounded-full border border-[#ffd10066] bg-[#ffd1001f] px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.12em] text-[#ffe374]">
+            Canal Oficial
+          </span>
+
+          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#e1e1e1]">Cupo Reglamento 2026</p>
+
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0.85 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-5 text-6xl font-black leading-none tracking-[-0.04em] text-[#ffd100] sm:text-7xl"
+          >
+            96
+          </motion.div>
+
+          <p className="mt-2 text-sm font-black uppercase tracking-[0.13em] text-white">PLAZAS DISPONIBLES</p>
+          <p className="mt-1 text-xs text-[#c8c8c8]">Cupo limitado por reglamento</p>
+
+          <div className="mt-6 rounded-md border border-[#ffffff1f] bg-black/35 p-4">
+            <p className="text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[#d8d8d8]">Ocupación visual</p>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#2b2b2b]">
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={{ width: "12%" }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full rounded-full bg-[#ffd100]"
+              />
+            </div>
+            <p className="mt-2 text-xs font-medium text-[#d6d6d6]">[██████░░░░] 12% ocupado</p>
+          </div>
+        </motion.aside>
+      </div>
     </motion.div>
   );
 }
