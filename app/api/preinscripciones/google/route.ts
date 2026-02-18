@@ -22,9 +22,7 @@ function isDbUnavailableError(error: unknown) {
 }
 
 function parseBoolean(value: boolean | string | undefined) {
-  if (typeof value === "boolean") {
-    return value;
-  }
+  if (typeof value === "boolean") return value;
 
   if (typeof value === "string") {
     const normalized = value.trim().toLowerCase();
@@ -46,55 +44,62 @@ function parseBoolean(value: boolean | string | undefined) {
 
 export async function POST(request: Request) {
   try {
+    console.log("---- GOOGLE FORM WEBHOOK ----");
+
     const expectedSecret = process.env.GOOGLE_FORMS_SECRET;
-    const fallbackSecret = process.env.GOOGLE_FORMS_SECRET_FALLBACK ?? "rkt_preinscripciones_2026_superseguro";
     const providedSecret = request.headers.get("x-google-secret");
 
-    const isAuthorized =
-      typeof providedSecret === "string" &&
-      (providedSecret === expectedSecret || providedSecret === fallbackSecret);
+    console.log("Expected Secret:", expectedSecret);
+    console.log("Provided Secret:", providedSecret);
 
-    if (!isAuthorized) {
-      return NextResponse.json({ ok: false, message: "No autorizado." }, { status: 401 });
+    if (!expectedSecret || providedSecret !== expectedSecret) {
+      return NextResponse.json(
+        { ok: false, message: "No autorizado." },
+        { status: 401 }
+      );
     }
 
     const body = (await request.json()) as GooglePayload;
 
-    if (!body.nombre || !body.telefono || !body.identidad || body.edad === undefined || body.edad === null) {
-      return NextResponse.json({ ok: false, message: "Datos incompletos." }, { status: 400 });
-    }
+    console.log("Payload recibido:", body);
 
     const seguroAceptado = parseBoolean(body.seguroAceptado);
     const imagenAceptada = parseBoolean(body.imagenAceptada);
     const responsabilidad = parseBoolean(body.responsabilidad);
 
-    if (!seguroAceptado || !imagenAceptada || !responsabilidad) {
-      return NextResponse.json({ ok: false, message: "Debes aceptar todas las condiciones." }, { status: 400 });
-    }
+    const parsedEdad = Number(body.edad);
+    const edad =
+      Number.isFinite(parsedEdad) && parsedEdad >= 16 && parsedEdad <= 90
+        ? parsedEdad
+        : 18;
 
-    const edad = Number(body.edad);
-    if (!Number.isFinite(edad) || edad < 16 || edad > 90) {
-      return NextResponse.json({ ok: false, message: "La edad debe estar entre 16 y 90 años." }, { status: 400 });
-    }
+    const timestamp = Date.now();
+    const nombre = body.nombre?.trim() || "Sin nombre (Google Form)";
+    const identidad = body.identidad?.trim() || `SIN-ID-${timestamp}`;
 
-    const rawTelefono = String(body.telefono).trim();
+    const rawTelefono = String(body.telefono ?? "").trim();
     let telefono = rawTelefono;
-    if (!telefono.startsWith("+")) {
-      const parsed = parsePhoneNumber(telefono, "ES");
-      if (parsed?.isValid()) {
-        telefono = parsed.number;
+
+    try {
+      if (telefono && !telefono.startsWith("+")) {
+        const parsed = parsePhoneNumber(telefono, "ES");
+        if (parsed?.isValid()) {
+          telefono = parsed.number;
+        }
       }
+    } catch (e) {
+      console.log("Teléfono inválido:", telefono);
     }
 
     if (!telefono) {
-      return NextResponse.json({ ok: false, message: "Número de teléfono inválido." }, { status: 400 });
+      telefono = `SIN-TELEFONO-${timestamp}`;
     }
 
     const created = await prisma.preInscripcion.create({
       data: {
-        nombre: body.nombre.trim(),
+        nombre,
         telefono,
-        identidad: body.identidad.trim(),
+        identidad,
         edad,
         email: body.email?.trim() ?? "",
         seguroAceptado,
@@ -104,8 +109,15 @@ export async function POST(request: Request) {
       }
     });
 
-    return NextResponse.json({ ok: true, item: created }, { status: 201 });
+    console.log("Preinscripción creada:", created.id);
+
+    return NextResponse.json(
+      { ok: true, item: created },
+      { status: 201 }
+    );
   } catch (error) {
+    console.error("ERROR EN WEBHOOK GOOGLE:", error);
+
     if (isDbUnavailableError(error)) {
       return NextResponse.json(
         { ok: false, message: "Base de datos no disponible temporalmente." },
@@ -113,6 +125,9 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ ok: false, message: "No se pudo registrar la preinscripción." }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, message: "No se pudo registrar la preinscripción." },
+      { status: 500 }
+    );
   }
 }
