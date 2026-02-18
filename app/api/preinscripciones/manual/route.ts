@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isValidPhoneNumber, validatePhoneNumberLength } from "libphonenumber-js";
+import { parsePhoneNumber } from "libphonenumber-js";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { prisma } from "@/lib/prisma";
 
@@ -36,15 +36,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, message: "La edad debe estar entre 16 y 90 años." }, { status: 400 });
     }
 
-    const phoneLengthValidation = validatePhoneNumberLength(body.phone);
-    if (phoneLengthValidation === "TOO_LONG") {
-      return NextResponse.json(
-        { ok: false, message: "El teléfono supera la longitud máxima permitida para ese país." },
-        { status: 400 }
-      );
+    const rawPhone = body.phone.trim();
+    let phone = rawPhone;
+
+    if (!phone.startsWith("+")) {
+      const parsed = parsePhoneNumber(phone, "ES");
+      if (parsed?.isValid()) {
+        phone = parsed.number;
+      }
     }
 
-    if (!isValidPhoneNumber(body.phone)) {
+    if (!phone) {
       return NextResponse.json({ ok: false, message: "Número de teléfono inválido." }, { status: 400 });
     }
 
@@ -64,7 +66,7 @@ export async function POST(request: Request) {
 
     const createData = {
       nombre: body.fullName.trim(),
-      telefono: body.phone.trim(),
+      telefono: phone,
       identidad: body.identityNumber.trim(),
       edad,
       email: body.email?.trim() ?? "",

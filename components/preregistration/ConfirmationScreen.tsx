@@ -39,14 +39,14 @@ export default function ConfirmationScreen() {
         variants={fieldRevealVariants}
         className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#dddddd] sm:text-base"
       >
-        Para aparecer en el panel de gestión, completa la inscripción únicamente desde el formulario oficial de Google.
+        Para aparecer en el panel de gestión, completa la inscripción desde la página oficial del Kartódromo Lucas Guerrero.
       </motion.p>
 
       <motion.div variants={confirmationLineVariants} className="mx-auto mt-6 h-px w-full max-w-sm origin-left bg-[#ffd100]" />
 
       <motion.div custom={2} variants={ctaBounceVariants} className="mt-8">
         <motion.a
-          href="https://forms.gle/1G3M7QfVskd4w6rm7"
+          href="https://kartodromovalencia.com/pre-inscripcion/"
           target="_blank"
           rel="noreferrer"
           className="inline-flex w-full max-w-lg items-center justify-center rounded-md bg-[#ffd100] px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-black shadow-[0_14px_0_rgba(0,0,0,0.6)] sm:text-base"
@@ -54,7 +54,7 @@ export default function ConfirmationScreen() {
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 260, damping: 18 }}
         >
-          IR AL FORMULARIO DE GOOGLE
+          IR A LA PREINSCRIPCIÓN OFICIAL
         </motion.a>
       </motion.div>
     </motion.div>

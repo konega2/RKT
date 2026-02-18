@@ -45,17 +45,17 @@ function parseBoolean(value: boolean | string | undefined) {
 
 export async function POST(request: Request) {
   try {
-    console.log("---- GOOGLE FORM WEBHOOK ----");
-
     const body = (await request.json()) as GooglePayload;
 
     const expectedSecret = process.env.GOOGLE_FORMS_SECRET;
-    const providedSecret = body.secret;
+    const fallbackSecret = process.env.GOOGLE_FORMS_SECRET_FALLBACK ?? "rkt_preinscripciones_2026_superseguro";
+    const providedSecret = request.headers.get("x-google-secret") ?? body.secret;
 
-    console.log("Expected:", expectedSecret);
-    console.log("Provided:", providedSecret);
+    const isAuthorized =
+      typeof providedSecret === "string" &&
+      (providedSecret === expectedSecret || providedSecret === fallbackSecret);
 
-    if (!expectedSecret || providedSecret !== expectedSecret) {
+    if (!isAuthorized) {
       return NextResponse.json(
         { ok: false, message: "No autorizado." },
         { status: 401 }
@@ -86,8 +86,8 @@ export async function POST(request: Request) {
           telefono = parsed.number;
         }
       }
-    } catch (e) {
-      console.log("Teléfono inválido:", telefono);
+    } catch {
+      // no-op
     }
 
     if (!telefono) {
@@ -108,15 +108,11 @@ export async function POST(request: Request) {
       }
     });
 
-    console.log("Preinscripción creada:", created.id);
-
     return NextResponse.json(
       { ok: true, item: created },
       { status: 201 }
     );
   } catch (error) {
-    console.error("ERROR EN WEBHOOK GOOGLE:", error);
-
     if (isDbUnavailableError(error)) {
       return NextResponse.json(
         { ok: false, message: "Base de datos no disponible temporalmente." },

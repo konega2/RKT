@@ -44,7 +44,7 @@ export default function PreRegistrationSection() {
             ASEGURA TU POSICIÓN EN PARRILLA
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-[#d6d6d6] sm:text-base">
-            La preinscripción se realiza exclusivamente a través de Google Forms.
+            La preinscripción se realiza exclusivamente desde la página oficial del Kartódromo Lucas Guerrero.
           </p>
         </header>
 
