@@ -31,7 +31,7 @@ export default function ConfirmationScreen() {
         variants={fieldRevealVariants}
         className="text-3xl font-black uppercase leading-[0.9] tracking-[-0.03em] text-white sm:text-4xl"
       >
-        PLAZA RESERVADA PROVISIONALMENTE
+        PREINSCRIPCIÓN EXTERNA OBLIGATORIA
       </motion.h3>
 
       <motion.p
@@ -39,20 +39,22 @@ export default function ConfirmationScreen() {
         variants={fieldRevealVariants}
         className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#dddddd] sm:text-base"
       >
-        Para confirmar oficialmente tu participación, completa el siguiente paso.
+        Para aparecer en el panel de gestión, completa la inscripción únicamente desde el formulario oficial de Google.
       </motion.p>
 
       <motion.div variants={confirmationLineVariants} className="mx-auto mt-6 h-px w-full max-w-sm origin-left bg-[#ffd100]" />
 
       <motion.div custom={2} variants={ctaBounceVariants} className="mt-8">
         <motion.a
-          href="https://kartodromovalencia.com/pre-inscripcion/"
+          href="https://forms.gle/1G3M7QfVskd4w6rm7"
+          target="_blank"
+          rel="noreferrer"
           className="inline-flex w-full max-w-lg items-center justify-center rounded-md bg-[#ffd100] px-6 py-4 text-sm font-black uppercase tracking-[0.08em] text-black shadow-[0_14px_0_rgba(0,0,0,0.6)] sm:text-base"
           whileHover={{ scale: 1.05, boxShadow: "0 18px 0 rgba(0,0,0,0.6)" }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 260, damping: 18 }}
         >
-          CONFIRMAR EN PARRILLA
+          IR AL FORMULARIO DE GOOGLE
         </motion.a>
       </motion.div>
     </motion.div>

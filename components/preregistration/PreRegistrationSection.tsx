@@ -1,14 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import ConfirmationScreen from "./ConfirmationScreen";
-import PreRegistrationForm from "./PreRegistrationForm";
 import { preRegistrationSectionVariants } from "./preregistrationVariants";
 
 export default function PreRegistrationSection() {
-  const [isConfirmedStep, setIsConfirmedStep] = useState(false);
-
   return (
     <motion.section
       id="reservar-plaza"
@@ -48,20 +44,11 @@ export default function PreRegistrationSection() {
             ASEGURA TU POSICIÓN EN PARRILLA
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-[#d6d6d6] sm:text-base">
-            Completa los siguientes datos para reservar provisionalmente tu plaza.
-          </p>
-          <p className="mt-3 text-xs font-medium text-[#cfcfcf] sm:text-sm">
-            <span className="text-[#ffd100]">*</span> Campos obligatorios
+            La preinscripción se realiza exclusivamente a través de Google Forms.
           </p>
         </header>
 
-        <AnimatePresence mode="wait">
-          {isConfirmedStep ? (
-            <ConfirmationScreen key="confirmation" />
-          ) : (
-            <PreRegistrationForm key="form" onSuccess={() => setIsConfirmedStep(true)} />
-          )}
-        </AnimatePresence>
+        <ConfirmationScreen />
       </div>
     </motion.section>
   );
