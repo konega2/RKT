@@ -4,6 +4,7 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import { prisma } from "@/lib/prisma";
 
 type GooglePayload = {
+  secret?: string;
   nombre?: string;
   telefono?: string;
   identidad?: string;
@@ -46,11 +47,13 @@ export async function POST(request: Request) {
   try {
     console.log("---- GOOGLE FORM WEBHOOK ----");
 
-    const expectedSecret = process.env.GOOGLE_FORMS_SECRET;
-    const providedSecret = request.headers.get("x-google-secret");
+    const body = (await request.json()) as GooglePayload;
 
-    console.log("Expected Secret:", expectedSecret);
-    console.log("Provided Secret:", providedSecret);
+    const expectedSecret = process.env.GOOGLE_FORMS_SECRET;
+    const providedSecret = body.secret;
+
+    console.log("Expected:", expectedSecret);
+    console.log("Provided:", providedSecret);
 
     if (!expectedSecret || providedSecret !== expectedSecret) {
       return NextResponse.json(
@@ -58,10 +61,6 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
-
-    const body = (await request.json()) as GooglePayload;
-
-    console.log("Payload recibido:", body);
 
     const seguroAceptado = parseBoolean(body.seguroAceptado);
     const imagenAceptada = parseBoolean(body.imagenAceptada);
